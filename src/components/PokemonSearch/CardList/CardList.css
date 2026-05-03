@@ -1,0 +1,20 @@
+.results-section {
+  background-color: white;
+  padding: 1.25rem;
+  border: 0.15rem solid #3c5aa6;
+  border-radius: 0.75rem;
+  box-shadow: 0 0 0 #2a407d;
+}
+
+.pokemon-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 0.5rem;
+}
+
+td {
+  padding: 1rem;
+  text-align: center;
+  border-top: 0.125rem solid #3c5aa6;
+  border-bottom: 0.125rem solid #3c5aa6;
+}
