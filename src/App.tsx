@@ -1,122 +1,87 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import React, { type ReactNode } from 'react';
+import Search from './components/PokemonSearch/Search/Search';
+import CardList from './components/PokemonSearch/CardList/CardList';
+import ErrorButton from './components/PokemonSearch/ErrorButton/ErrorButton';
+import { ErrorBoundary } from './components/ErrorBoundary/ErrorBoundary';
+import type { Pokemon } from './types/pokemon';
+import './App.css';
 
-function App() {
-  const [count, setCount] = useState(0)
+type AppState = {
+  pokemons: Pokemon[];
+  isLoading: boolean;
+  error: string | null;
+};
 
-  return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+export default class App extends React.Component<{}, AppState> {
+  constructor(props: {}) {
+    super(props);
+    this.state = {
+      pokemons: [],
+      isLoading: false,
+      error: null,
+    };
+  }
+
+  componentDidMount() {
+    const inputValue = localStorage.getItem('search_input_value') || '';
+    this.handleSearch(inputValue);
+  }
+
+  handleSearch = async (inputValue: string) => {
+    this.setState({ isLoading: true, error: null });
+
+    try {
+      const trimmedInputValue = inputValue.trim();
+      const url = trimmedInputValue
+        ? `https://pokeapi.co/api/v2/pokemon/${trimmedInputValue.toLowerCase()}`
+        : `https://pokeapi.co/api/v2/pokemon?limit=20`;
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error('No Pokemons!');
+      }
+
+      const data = await response.json();
+
+      let results;
+      if (trimmedInputValue) {
+        results = [
+          {
+            name: data.name,
+            url: `https://pokeapi.co/api/v2/pokemon/${data.id}/`,
+          },
+        ];
+      } else {
+        results = data.results;
+      }
+
+      this.setState({ pokemons: results, isLoading: false });
+    } catch (error) {
+      this.setState({ error: error.message, pokemons: [], isLoading: false });
+    }
+  };
+
+  render(): ReactNode {
+    return (
+      <ErrorBoundary>
+        <div className="app-container">
+          <section>
+            <Search onSearch={this.handleSearch}></Search>
+          </section>
+
+          <section>
+            {this.state.isLoading ? <p>Loading...</p> : null}
+            {this.state.error ? <p>{this.state.error}</p> : null}
+            {!this.state.isLoading && !this.state.error && (
+              <CardList pokemons={this.state.pokemons} />
+            )}
+          </section>
+          <section className="error-button-container">
+            <ErrorButton></ErrorButton>
+          </section>
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+      </ErrorBoundary>
+    );
+  }
 }
-
-export default App
