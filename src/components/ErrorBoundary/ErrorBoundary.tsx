@@ -1,5 +1,5 @@
 import React, { type ReactNode } from 'react';
-import pikachu from '../../../public/Pikachu.svg';
+import pikachu from '../../assets/Pikachu.svg';
 import './ErrorBoundary.css';
 
 type Props = {
