@@ -1,9 +1,5 @@
 import React, { type ReactNode } from 'react';
-import type { Pokemon } from '../../../types/pokemon';
-
-type CardProps = {
-  pokemon: Pokemon;
-};
+import type { CardProps } from '../../../types/types';
 
 export default class Card extends React.Component<CardProps> {
   render(): ReactNode {

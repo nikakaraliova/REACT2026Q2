@@ -1,13 +1,9 @@
 import React, { type ReactNode } from 'react';
 import './ErrorButton.css';
-
-type ErrorButtonProps = {};
-type ErrorButtonPropsState = {
-  shouldThrow: boolean;
-};
+import type { ErrorButtonPropsState } from '../../../types/types';
 
 export default class ErrorButton extends React.Component<
-  ErrorButtonProps,
+  {},
   ErrorButtonPropsState
 > {
   constructor(props: {}) {

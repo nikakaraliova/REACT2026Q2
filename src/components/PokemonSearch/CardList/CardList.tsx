@@ -1,11 +1,8 @@
-import type { Pokemon } from '../../../types/pokemon';
+import type { Pokemon } from '../../../types/types';
 import React, { type ReactNode } from 'react';
 import Card from '../Card/Card';
 import './CardList.css';
-
-type CardListProps = {
-  pokemons: Pokemon[];
-};
+import type { CardListProps } from '../../../types/types';
 
 export default class CardList extends React.Component<CardListProps, {}> {
   checkPokemons = () => {

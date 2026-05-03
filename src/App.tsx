@@ -3,14 +3,8 @@ import Search from './components/PokemonSearch/Search/Search';
 import CardList from './components/PokemonSearch/CardList/CardList';
 import ErrorButton from './components/PokemonSearch/ErrorButton/ErrorButton';
 import { ErrorBoundary } from './components/ErrorBoundary/ErrorBoundary';
-import type { Pokemon } from './types/pokemon';
+import type { AppState } from './types/types';
 import './App.css';
-
-type AppState = {
-  pokemons: Pokemon[];
-  isLoading: boolean;
-  error: string | null;
-};
 
 export default class App extends React.Component<{}, AppState> {
   constructor(props: {}) {

@@ -1,13 +1,6 @@
 import React, { type ReactNode } from 'react';
 import './Search.css';
-
-type SearchProps = {
-  onSearch: (textInput: string) => void;
-};
-
-type SearchState = {
-  searchInputValue: string;
-};
+import type { SearchProps, SearchState } from '../../../types/types';
 
 export default class Search extends React.Component<SearchProps, SearchState> {
   constructor(props: SearchProps) {
