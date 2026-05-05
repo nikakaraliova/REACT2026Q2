@@ -1,0 +1,13 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  padding: 2.5rem;
+  margin: 0 5rem;
+  min-height: 100vh;
+  font-family: 'Arial Black', sans-serif;
+}
+
+.error-button-container {
+  text-align: right;
+  margin-top: 2rem;
+}

@@ -1,0 +1,43 @@
+.search-section {
+  padding: 2rem;
+  border: 0.15rem solid #2a407d;
+  border-radius: 0.75rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  box-shadow: 0 00 #1a2a5a;
+  margin-bottom: 2rem;
+}
+
+input {
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
+  border: 0.2rem solid #3c5aa6;
+  border-radius: 0.75rem;
+  width: 100%;
+  outline: none;
+}
+
+.pokemon-button {
+  background-color: #ffcb05; /* Желтый */
+  color: #3c5aa6; /* Синий текст */
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 0.75rem 2rem;
+  border: 0.2rem solid #3c5aa6;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  box-shadow: 0.25rem 0.25rem 0 #2a407d;
+  transition: all 0.1s ease-in-out;
+}
+
+.pokemon-button:hover {
+  background-color: #fbd100;
+  transform: translate(-0.125rem, -0.125rem);
+  box-shadow: 0.375rem 0.375rem 0.375rem #2a407d;
+}
+
+.pokemon-button:active {
+  transform: translate(0.125rem, 0.125rem);
+  box-shadow: 0 0 0 #2a407d;
+}

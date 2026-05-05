@@ -1,0 +1,10 @@
+h1 {
+  text-align: center;
+  color: #bc1818;
+}
+img {
+  width: 40rem;
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+}
