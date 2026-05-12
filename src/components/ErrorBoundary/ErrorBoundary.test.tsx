@@ -1,6 +1,7 @@
 import { describe, test, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { ErrorBoundary } from './ErrorBoundary';
+import '@testing-library/jest-dom/vitest';
 
 const BuggyComponent = () => {
   throw new Error('Test error');
@@ -26,7 +27,7 @@ describe('ErrorBoundary tests', () => {
     expect(header.textContent).toBe('Test error');
 
     const image = screen.getByAltText('pikachu') as HTMLImageElement;
-    expect(image).contains;
+    expect(image).toBeInTheDocument();
     expect(image.src).toContain('Pikachu.svg');
   });
 

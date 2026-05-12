@@ -1,6 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, test, expect, beforeEach, vi } from 'vitest';
 import Search from './Search';
+import '@testing-library/jest-dom/vitest';
 
 describe('Rendering Tests', () => {
   beforeEach(() => {
@@ -11,13 +12,10 @@ describe('Rendering Tests', () => {
   test('Renders search input and search button', () => {
     render(<Search onSearch={() => {}}></Search>);
 
-    const input = screen.getByPlaceholderText(
-      'Enter the name of the Pokémon...'
-    ) as HTMLInputElement;
-    const button = screen.getByText('Search') as HTMLInputElement;
-
-    expect(input).contains;
-    expect(button).contains;
+    expect(
+      screen.getByPlaceholderText('Enter the name of the Pokémon...')
+    ).toBeInTheDocument();
+    expect(screen.getByText('Search')).toBeInTheDocument();
   });
 
   test('Displays previously saved search term from localStorage on mount', () => {

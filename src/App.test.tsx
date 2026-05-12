@@ -38,11 +38,11 @@ describe('App Component Integration Tests', () => {
 
     render(<App />);
 
-    expect(screen.getByText('Loading...')).contain;
+    expect(screen.getByText('Loading...')).toBeInTheDocument();
 
     await waitFor(() => {
-      expect(screen.getByText('bulbasaur')).contain;
-      expect(screen.getByText('ivysaur')).contain;
+      expect(screen.getByText('bulbasaur')).toBeInTheDocument();
+      expect(screen.getByText('ivysaur')).toBeInTheDocument();
     });
   });
 
